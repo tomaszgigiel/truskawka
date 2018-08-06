@@ -1,4 +1,4 @@
-(ns pl.tomaszgigiel.truskawka.core
+(ns pl.tomaszgigiel.truskawka.simple
   (:require [clojure.java.io :as io])
   (:import java.io.File)
   (:import java.net.URL)
@@ -13,4 +13,4 @@
   "truskawka: clojure wget"
   [& args]
   (copy-uri-to-file (new URL (first args)) (new File (second args)))
-  (println "ok"))
+  (println "ok (simpple)"))

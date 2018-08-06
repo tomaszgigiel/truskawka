@@ -4,7 +4,7 @@ A Clojure "wget".
 
 ## Usage
 
-java -jar ./truskawka-uberjar.jar "https://www.google.pl" "$HOME/_delete_content/delete.txt"
+java -cp ./truskawka-uberjar.jar pl.tomaszgigiel.truskawka.jsoup "https://www.google.pl" "$HOME/_delete_content/delete.txt"
 
 ## License
 

@@ -3,19 +3,19 @@
   (:require [clojure.tools.cli :refer [parse-opts]])
   (:require [clojure.string :as string])
   (:import java.io.File)
-  (:import java.net.InetAddress)
   (:import java.net.URL)
   (:import org.jsoup.Jsoup)
   (:gen-class))
 
 (def cli-options
   [["-o" "--output-file LOGFILE" "log all messages to logfile"]
-   ["-p" "--port PORT" "port number"
+   ["-p" "--port PORT" "proxy port number"
     :parse-fn #(Integer/parseInt %)
     :validate [#(< 0 % 0x10000) "Must be a number between 0 and 65536"]]
-   ["-H" "--hostname HOST" "remote host"
-    :parse-fn #(InetAddress/getByName %)]
-   ["-v" "--validate-tls-certificates" :default true]
+   ["-H" "--host HOST" "proxy host"]
+   ["-v" "--validate-tls-certificates VALIDATE" "if should validate TLS (SSL) certificates, true by default"
+    :default true
+    :parse-fn #(Boolean/parseBoolean %)]
    ["-h" "--help"]])
 
 (defn usage [options-summary]
@@ -66,4 +66,4 @@
       (do (if (contains? options :host) (.. System (setProperty "https.proxyHost" (:host options))))
         (if (contains? options :port) (.. System (setProperty "https.proxyPort" (str (:port options)))))
         (copy-uri-to-file uri (new File (:output-file options)) (:validate-tls-certificates options)))))
-  (println "ok (simpple)"))
+  (println "ok (jsoup)"))

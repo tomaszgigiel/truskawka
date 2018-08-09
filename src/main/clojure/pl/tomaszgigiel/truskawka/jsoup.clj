@@ -1,7 +1,8 @@
 (ns pl.tomaszgigiel.truskawka.jsoup
   (:require [clojure.java.io :as io])
-  (:require [clojure.tools.cli :refer [parse-opts]])
   (:require [clojure.string :as string])
+  (:require [clojure.tools.cli :refer [parse-opts]])
+  (:require [clojure.tools.logging :as log])
   (:import java.io.File)
   (:import java.net.URL)
   (:import org.jsoup.Jsoup)
@@ -51,7 +52,7 @@
       {:exit-message (usage summary)})))
 
 (defn exit [status msg]
-  (println msg)
+  (log/info msg)
   (System/exit status))
 
 (defn copy-uri-to-file [uri file v]
@@ -66,4 +67,4 @@
       (do (if (contains? options :host) (.. System (setProperty "https.proxyHost" (:host options))))
         (if (contains? options :port) (.. System (setProperty "https.proxyPort" (str (:port options)))))
         (copy-uri-to-file uri (new File (:output-file options)) (:validate-tls-certificates options)))))
-  (println "ok (jsoup)"))
+  (log/info "ok (jsoup)"))
